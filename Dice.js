@@ -14,20 +14,20 @@ class Dice{
 
     mapLoader = new THREE.TextureLoader();
 
-    var texture0 = mapLoader.load('assets/DiceOne.png');
-    var texture1 = mapLoader.load('assets/DiceTwo.png');
-    var texture2 = mapLoader.load('assets/DiceThree.png');
-    var texture3 = mapLoader.load('assets/DiceFour.png');
-    var texture4 = mapLoader.load('assets/DiceFive.png');
-    var texture5 = mapLoader.load('assets/DiceSix.png');
+    var texture1 = mapLoader.load('assets/DiceOne.png');
+    var texture2 = mapLoader.load('assets/DiceTwo.png');
+    var texture3 = mapLoader.load('assets/DiceThree.png');
+    var texture4 = mapLoader.load('assets/DiceFour.png');
+    var texture5 = mapLoader.load('assets/DiceFive.png');
+    var texture6 = mapLoader.load('assets/DiceSix.png');
 
     var materials = [
-        new THREE.MeshPhongMaterial({map: texture0}),
-        new THREE.MeshPhongMaterial({map: texture1}),
-        new THREE.MeshPhongMaterial({map: texture2}),
-        new THREE.MeshPhongMaterial({map: texture3}),
-        new THREE.MeshPhongMaterial({map: texture4}),
-        new THREE.MeshPhongMaterial({map: texture5})];
+        new THREE.MeshPhongMaterial({map: texture1, bumpMap:texture1, bumpScale:1}),
+        new THREE.MeshPhongMaterial({map: texture2, bumpMap:texture2, bumpScale:1}),
+        new THREE.MeshPhongMaterial({map: texture3, bumpMap:texture3, bumpScale:1}),
+        new THREE.MeshPhongMaterial({map: texture4, bumpMap:texture4, bumpScale:1}),
+        new THREE.MeshPhongMaterial({map: texture5, bumpMap:texture5, bumpScale:1}),
+        new THREE.MeshPhongMaterial({map: texture6, bumpMap:texture6, bumpScale:1})];
 
     var faceMaterial = new THREE.MeshFaceMaterial(materials);
 
