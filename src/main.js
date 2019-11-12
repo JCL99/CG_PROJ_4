@@ -34,14 +34,15 @@ function createScene(){ 'use strict';
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-  perspectiveCamera.position.set(0, 20, 50);
-	//perspectiveCamera.position.set(0, 50, 0);
+  //perspectiveCamera.position.set(0, 20, 50);
+	perspectiveCamera.position.set(0, 50, 0);
 
   ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
   ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
 
   currentCamera = perspectiveCamera;
-  currentCamera.lookAt(0,0,0);
+  //currentCamera.lookAt(0,0,0);
+	currentCamera.lookAt(dice.getObject3D().position);
 }
 
 function render(){ 'use strict';
@@ -52,7 +53,7 @@ function update(){ 'use strict';
 	// Pretend something cool is happening pls
 	//chessBoard.getObject3D().rotateZ(0.001);
 	monaLisaBall.getObject3D().rotateY(-0.01);
-	dice.getObject3D().rotateY(0.01);
+	dice.massCenter.rotateY(0.07);
 }
 
 function init(){ 'use strict';

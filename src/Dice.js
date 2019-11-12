@@ -5,6 +5,8 @@ class Dice{
     this.size = size;
     this.segments = 32;
 
+    this.massCenter = new THREE.Group();
+
     this.thisTimeJustCallTheStupidFunction();
   }
 
@@ -36,8 +38,12 @@ class Dice{
     geometry.computeVertexNormals();
 
     mesh = new THREE.Mesh(geometry, faceMaterial);
+    mesh.rotateZ(Math.PI/4);
+    //mesh.rotateX(Math.asin(this.size/(Math.sqrt(3*(this.size*this.size)))));
+    mesh.rotateX(Math.atan(1/Math.sqrt(2)));
     this.Object3D.add(mesh);
-    this.Object3D.position.set(this.x, this.y + this.size/2, this.z);
+    this.Object3D.add(new THREE.AxesHelper(15));
+    this.Object3D.position.set(this.x, this.y + Math.sqrt(3 * (this.size * this.size))/2, this.z);
   }
 
   getObject3D(){

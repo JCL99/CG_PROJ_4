@@ -1,4 +1,4 @@
-/*Yes, a c file. I am as surprised as you are :) */
+/* Yes, a c file. I am as surprised as you are :) */
 /* Dont't let me get into your head... */
 /* One more thing. */
 /* You are now breathing manually */
