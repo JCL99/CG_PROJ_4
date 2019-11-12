@@ -27,11 +27,13 @@ class EventHandler{
   	switch(event.keyCode){
 
 		}
+		cancelAnimationFrame(frameId);
  	}
 
 	onKeyUp(event){ 'use strict';
   	switch(event.keyCode){
 
 		}
+		requestAnimationFrame(animate);
 	}
 }
