@@ -10,17 +10,17 @@ class ChessBoard{
 	}
 
 	magicallyCreateChessBoard(){
-		var mesh, geometry, material, texture;
+		console.log("Magic stuff gonna happen. Behold the power of javascript(ZERO -.-)!");
+		var mesh, geometry, material, mapLoader, texture, woodBumpMap;
 
-		texture = new THREE.TextureLoader().load('assets/ChessBoard.png');
-		texture.wrapS = THREE.RepeatWrapping;
-		texture.wrapT = THREE.RepeatWrapping;
-		texture.repeat.set(1, 1);
+		mapLoader = new THREE.TextureLoader();
+		texture = mapLoader.load('assets/ChessBoard.jpg');
+		woodBumpMap = mapLoader.load('assets/WoodBumpMap.jpg');
+
+		material = new THREE.MeshPhongMaterial({side:THREE.DoubleSide, map:texture, bumpMap:woodBumpMap, bumpScale:1});
 
 		geometry = new THREE.PlaneGeometry(this.width, this.height, this.segments);
-
-		material = new THREE.MeshLambertMaterial({map : texture});
-		material.side = THREE.DoubleSide;
+		geometry.computeVertexNormals();
 
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(this.x, this.y, this.z);
