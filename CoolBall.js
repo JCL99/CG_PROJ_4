@@ -22,7 +22,7 @@ class CoolBall{
 
     mesh = new THREE.Mesh(geometry, material);
     this.Object3D.add(mesh);
-    this.Object3D.position.set(this.x, this.y + this.radius, this.z + 0);
+    this.Object3D.position.set(this.x, this.y + this.radius, this.z);
     this.Object3D.rotateY(-Math.PI/2);
   }
 

@@ -1,23 +1,29 @@
+// Classic setup coppied from Maria's work :)
 var camera, scene, renderer, eventHandler;
 var perspectiveCamera, ortographicCamera, currentCamera;
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 var aspect = SCREEN_HEIGHT/SCREEN_WIDTH;
 
-var chessBoard, monaLisaBall;
+// Scene Object3D's
+var chessBoard, monaLisaBall, dice;
 
 function createScene(){ 'use strict';
 	scene = new THREE.Scene();
 
+	// Chess board :)
 	chessBoard = new ChessBoard(0, 0, 0, 50);
 	scene.add(chessBoard.getObject3D());
-	chessBoard.getObject3D().position.set(0,0,0);
 
-	// Mona Lisa ball
+	// Mona Lisa ball :)
 	monaLisaBall = new CoolBall(-10, 0, -10, 7);
 	scene.add(monaLisaBall.getObject3D());
 
-	// Lights, axis,
+	// Dice :)
+	dice = new Dice(10, 0, 10, 7);
+	scene.add(dice.getObject3D());
+
+	// Lights, axis, ..... :)
 	scene.add(new THREE.AmbientLight(0x444444));
 	var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
   chessBoardSpotlight.position.set(0, 30, 20);
@@ -44,6 +50,7 @@ function update(){ 'use strict';
 	// Pretend something cool is happening pls
 	//chessBoard.getObject3D().rotateZ(0.001);
 	monaLisaBall.getObject3D().rotateY(-0.01);
+	dice.getObject3D().rotateY(0.01);
 }
 
 function init(){ 'use strict';

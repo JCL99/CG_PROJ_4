@@ -25,6 +25,7 @@ class ChessBoard{
 		mesh = new THREE.Mesh(geometry, material);
 
 		this.Object3D.add(mesh);
+		this.Object3D.position.set(this.x, this.y, this.z);
 		this.Object3D.rotateX(Math.PI/2);
 		//this.Object3D.add(new THREE.AxesHelper(50));
 	}
