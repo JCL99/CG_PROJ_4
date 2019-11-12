@@ -13,15 +13,15 @@ function createScene(){ 'use strict';
 	scene.add(chessBoard.getObject3D());
 	chessBoard.getObject3D().position.set(0,0,0);
 
-	monaLisaBall = new CoolBall(0, 0, 0, 7);
+	// Mona Lisa ball
+	monaLisaBall = new CoolBall(-10, 0, -10, 7);
 	scene.add(monaLisaBall.getObject3D());
 
+	// Lights, axis,
 	scene.add(new THREE.AmbientLight(0x444444));
-	var light = new THREE.SpotLight();
-  light.position.set(0, 30, 30);
-  light.intensity = 1.2;
-	light.target = chessBoard.getObject3D();
-  scene.add(light);
+	var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
+  chessBoardSpotlight.position.set(0, 30, 20);
+  scene.add(chessBoardSpotlight);
 	scene.add(new THREE.AxesHelper(25));
 }
 
@@ -42,7 +42,7 @@ function render(){ 'use strict';
 
 function update(){ 'use strict';
 	// Pretend something cool is happening pls
-	chessBoard.getObject3D().rotateZ(0.001);
+	//chessBoard.getObject3D().rotateZ(0.001);
 	monaLisaBall.getObject3D().rotateY(-0.01);
 }
 

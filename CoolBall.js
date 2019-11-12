@@ -18,11 +18,11 @@ class CoolBall{
     geometry = new THREE.SphereGeometry(this.radius, this.segments, this.segments);
     geometry.computeVertexNormals();
 
-    material = new THREE.MeshPhongMaterial({map:texture});
+    material = new THREE.MeshPhongMaterial({map:texture, shininess:30, specular:0x444444});
 
     mesh = new THREE.Mesh(geometry, material);
     this.Object3D.add(mesh);
-    this.Object3D.position.set(0, this.radius, 0);
+    this.Object3D.position.set(this.x, this.y + this.radius, this.z + 0);
     this.Object3D.rotateY(-Math.PI/2);
   }
 
