@@ -17,17 +17,16 @@ class ChessBoard{
 		texture = mapLoader.load('assets/ChessBoard.jpg');
 		woodBumpMap = mapLoader.load('assets/WoodBumpMap.jpg');
 
-		material = new THREE.MeshPhongMaterial({side:THREE.DoubleSide, map:texture, bumpMap:woodBumpMap, bumpScale:1});
+		material = new THREE.MeshPhongMaterial({side:THREE.DoubleSide, map:texture, bumpMap:woodBumpMap, bumpScale:0.75});
 
 		geometry = new THREE.PlaneGeometry(this.width, this.height, this.segments);
 		geometry.computeVertexNormals();
 
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(this.x, this.y, this.z);
 
 		this.Object3D.add(mesh);
-		this.Object3D.add(new THREE.AxesHelper(20));
 		this.Object3D.rotateX(Math.PI/2);
+		//this.Object3D.add(new THREE.AxesHelper(50));
 	}
 
 	getObject3D(){
