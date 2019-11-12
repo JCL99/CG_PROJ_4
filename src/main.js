@@ -27,6 +27,7 @@ function createScene(){ 'use strict';
 	scene.add(new THREE.AmbientLight(0x444444));
 	var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
   chessBoardSpotlight.position.set(0, 30, 20);
+	//chessBoardSpotlight.position.set(0, 100, 0);
   scene.add(chessBoardSpotlight);
 	scene.add(new THREE.AxesHelper(25));
 }
@@ -34,6 +35,7 @@ function createScene(){ 'use strict';
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
   perspectiveCamera.position.set(0, 20, 50);
+	//perspectiveCamera.position.set(0, 50, 0);
 
   ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
   ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
