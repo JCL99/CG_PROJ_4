@@ -12,21 +12,22 @@ class ChessBoard{
 	magicallyCreateChessBoard(){
 		var mesh, geometry, material, texture;
 
-		texture = new THREE.TextureLoader().load("/assets/ChessBoard.png");
+		texture = new THREE.TextureLoader().load('assets/ChessBoard.png');
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
-		//texture.repeat.set(6, 6);
+		texture.repeat.set(1, 1);
 
 		geometry = new THREE.PlaneGeometry(this.width, this.height, this.segments);
 
-		material = new THREE.MeshBasicMaterial({map : texture});
+		material = new THREE.MeshLambertMaterial({map : texture});
+		material.side = THREE.DoubleSide;
 
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0,0,0);
-		//mesh.rotateZ(Math.PI/2);
-		//mesh.position.set(this.x, this.y, this.z);
+		mesh.position.set(this.x, this.y, this.z);
 
 		this.Object3D.add(mesh);
+		this.Object3D.add(new THREE.AxesHelper(20));
+		this.Object3D.rotateX(Math.PI/2);
 	}
 
 	getObject3D(){

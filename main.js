@@ -8,9 +8,7 @@ var chessBoard;
 
 function createScene(){ 'use strict';
 	scene = new THREE.Scene();
-
-	var light = new THREE.AmbientLight( 0x404040 ); // soft white light
- 	scene.add( light );
+ 	scene.add(new THREE.AmbientLight(0xFFFFFF));
 
 	chessBoard = new ChessBoard(0, 0, 0, 50);
 	scene.add(chessBoard.getObject3D());
@@ -18,7 +16,7 @@ function createScene(){ 'use strict';
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-  perspectiveCamera.position.set(50, 50, 50);
+  perspectiveCamera.position.set(0, 50, 0);
 
   ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
   ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
@@ -33,6 +31,7 @@ function render(){ 'use strict';
 
 function update(){ 'use strict';
 	// Pretend something cool is happening pls
+	chessBoard.getObject3D().rotateX(0.01);
 }
 
 function init(){ 'use strict';
