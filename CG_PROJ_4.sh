@@ -3,5 +3,4 @@
 
 echo "PLEASE CLOSE ALL YOUR CHROME TABS BEFORE INVOKING ME"
 
-USER="sw"
-google-chrome --allow-file-access-from-files file:///home/$USER/Desktop/CG_PROJ_4/src/main.html
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --allow-file-access-from-files file:///Users/sbranciasensi/Desktop/CG_PROJ_4/src/main.html

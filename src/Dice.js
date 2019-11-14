@@ -6,6 +6,7 @@ class Dice{
     this.segments = 32;
 
     this.massCenter = new THREE.Group();
+    this.wireframe = false;
 
     this.thisTimeJustCallTheStupidFunction();
   }

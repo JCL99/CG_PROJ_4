@@ -1,9 +1,11 @@
 // Classic setup coppied from Maria's work :)
-var camera, scene, renderer, eventHandler, frameId;
+var camera, scene, renderer, eventHandler, frameId, clock, delta;
 var perspectiveCamera, ortographicCamera, currentCamera;
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 var aspect = SCREEN_HEIGHT/SCREEN_WIDTH;
+
+var moveBall = false, stopAnimation = false, isBasic = false;
 
 // Scene Object3D's
 var chessBoard, monaLisaBall, dice;
@@ -12,21 +14,21 @@ function createScene(){ 'use strict';
 	scene = new THREE.Scene();
 
 	// Chess board :)
-	chessBoard = new ChessBoard(0, 0, 0, 50);
+	chessBoard = new ChessBoard(0, 0, 0, 70);
 	scene.add(chessBoard.getObject3D());
 
 	// Mona Lisa ball :)
-	monaLisaBall = new CoolBall(-10, 0, -10, 7);
+	monaLisaBall = new CoolBall(-15, 0, -10, 7);
 	scene.add(monaLisaBall.getObject3D());
 
 	// Dice :)
-	dice = new Dice(10, 0, 10, 7);
+	dice = new Dice(0, 0, 0, 7);
 	scene.add(dice.getObject3D());
 
 	// Lights, axis, ..... :)
 	scene.add(new THREE.AmbientLight(0x444444));
 	//var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
-	var chessBoardSpotlight = new THREE.PointLight(0x444444, 1.3, 75);
+	var chessBoardSpotlight = new THREE.PointLight(0x444444, 5, 75);
   chessBoardSpotlight.position.set(0, 30, 20);
 	//chessBoardSpotlight.position.set(0, 100, 0);
   scene.add(chessBoardSpotlight);
@@ -35,7 +37,7 @@ function createScene(){ 'use strict';
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-  perspectiveCamera.position.set(0, 20, 50);
+  perspectiveCamera.position.set(0, 20, 70);
 	//perspectiveCamera.position.set(0, 50, 0);
 
   ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
@@ -53,14 +55,24 @@ function render(){ 'use strict';
 function update(){ 'use strict';
 	// Pretend something cool is happening pls
 	//chessBoard.getObject3D().rotateZ(0.001);
-	monaLisaBall.getObject3D().rotateY(-0.01);
+	//monaLisaBall.getObject3D().rotateY(-0.01);
+
+	delta = clock.getDelta();
 	dice.getObject3D().rotateY(0.07);
+
+	if(moveBall){
+		console.log("aqui");
+		monaLisaBall.getObject3D().rotateY(0.5);
+	}
+
+	//eventHandler.handlePossibleEvents(delta);
 }
 
 function init(){ 'use strict';
 	renderer = new THREE.WebGLRenderer({antialias: true, fullscreen: true});
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+  clock = new THREE.Clock({autostart:true});
 
   eventHandler = new EventHandler();
 	window.addEventListener("keydown", eventHandler.onKeyDown);

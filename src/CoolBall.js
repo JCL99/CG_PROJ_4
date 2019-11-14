@@ -5,6 +5,9 @@ class CoolBall{
     this.radius = radius;
     this.segments = 32;
 
+    this.momentum = null;
+    //this.moveAround = false;
+
     this.askGodForBall();
   }
 
@@ -28,5 +31,10 @@ class CoolBall{
 
   getObject3D(){
     return this.Object3D;
+  }
+
+
+  update(delataTime){
+
   }
 }
