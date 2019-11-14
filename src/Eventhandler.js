@@ -26,58 +26,93 @@ class EventHandler{
 	onKeyDown(event){ 'use strict';
   	switch(event.keyCode){
   		case 83: //"S" stop animation
-  			stopAnimation != stopAnimation;
+  			stopAnimation = !stopAnimation;
   			break;
 
-  		case 87:
-        	scene.traverse(function (node) {
-	            if (node instanceof THREE.Mesh) {
-	              node.material.wireframe = !node.material.wireframe;
-	            }});
+  		case 87: //"W"  wireframe
+  			showWireframe = !showWireframe;
         	break;	
 
-        case 76:
+        case 76: //"L" desliga o calculo da luz 
         	isBasic = !isBasic;
-        	console.log("hey bitch");
         	break;
+
+        case 66: //"B" activate/deactivate ball motion
+  			moveBall = !moveBall;
+  			break;
+		
+
+		case 68: //"D" desliga luz direcional 
+			directionalLightON = !directionalLightON;
+			break;
+
+		case 80: //"P" desliga a luz pontual 
+			pointLightON = !pointLightON;
+			break;
+
 		}
-
-
 		
  	}
 
 	onKeyUp(event){ 'use strict';
   	switch(event.keyCode){
   		case 66: //"B" activate/deactivate ball motion
-  			moveBall != moveBall;
+  			
   			break;
 
   		case 83:
   			if(stopAnimation){
-  				cancelAnimationFrame(frameId);
-  				stopAnimation != stopAnimation;
+  				clock.startTime = 0;
+				clock.oldTime = 0;
+				clock.elapsedTime = 0;
+  				// cancelAnimationFrame(frameId);
+  				// stopAnimation != stopAnimation;
   			} else {
-  				requestAnimationFrame(animate);
+  				//requestAnimationFrame(animate);
   			}
   			break;
+
+  		case 87: //"W"  wireframe
+  			monaLisaBall.changeMaterial();
+  			dice.changeMaterial();
+  			chessBoard.changeMaterial();
+        	break;	
+
+
   		case 76:
-  			if (isBasic){
-  				scene.traverse(function(node) {
-  					if (node instanceof THREE.Mesh){
-  						node.material.dispose();
-  						node.material = new THREE.MeshBasicMaterial({color: node.material.color});
-  						console.log("aqui");
-  					}
-  				});
+  			monaLisaBall.changeMaterial();
+  			dice.changeMaterial();
+  			chessBoard.changeMaterial();
+  			break;
+
+  		case 68: //"D" desliga luz direcional 
+  			if(!directionalLightON){
+  				boardDirectionalLight.intensity = 0;
+  			} else if(directionalLightON){
+  				boardDirectionalLight.intensity = 2;
   			}
+			break;
+
+		case 80: //"P" desliga a luz pontual 
+
+			if(!pointLightON){
+  				boardPointlight.intensity = 0;
+  			} else if(pointLightON){
+  				boardPointlight.intensity = 3;
+  			}
+			break;
+
 		}
-	}
+}
+
 
 	handlePossibleEvents(deltaTime){
 
 		if(moveBall){
-			monaLisaBall.getObject3D().rotateY(0.5);
+			monaLisaBall.getObject3D().update(deltaTime);
 		}
 
 	}
+
 }
+

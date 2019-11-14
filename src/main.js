@@ -5,8 +5,10 @@ var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 var aspect = SCREEN_HEIGHT/SCREEN_WIDTH;
 
-var moveBall = false, stopAnimation = false, isBasic = false;
+var moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false;
 
+var boardPointlight, boardDirectionalLight;
+var pointLightON = true, directionalLightON = true;
 // Scene Object3D's
 var chessBoard, monaLisaBall, dice;
 
@@ -25,13 +27,18 @@ function createScene(){ 'use strict';
 	dice = new Dice(0, 0, 0, 7);
 	scene.add(dice.getObject3D());
 
-	// Lights, axis, ..... :)
-	scene.add(new THREE.AmbientLight(0x444444));
+
 	//var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
-	var chessBoardSpotlight = new THREE.PointLight(0x444444, 5, 75);
-  chessBoardSpotlight.position.set(0, 30, 20);
-	//chessBoardSpotlight.position.set(0, 100, 0);
-  scene.add(chessBoardSpotlight);
+	boardPointlight = new THREE.PointLight(0x444444, 3, 75, 0, 2);
+  	boardPointlight.position.set(0, 20, 20);
+  	boardPointlight.shadow = new THREE.LightShadow(camera);
+	scene.add(boardPointlight);
+
+	boardDirectionalLight = new THREE.DirectionalLight(0x444444, 2);
+	boardDirectionalLight.position.set(2, 30, -1);
+	scene.add(boardDirectionalLight);
+
+
 	scene.add(new THREE.AxesHelper(25));
 }
 
@@ -58,14 +65,20 @@ function update(){ 'use strict';
 	//monaLisaBall.getObject3D().rotateY(-0.01);
 
 	delta = clock.getDelta();
-	dice.getObject3D().rotateY(0.07);
 
-	if(moveBall){
-		console.log("aqui");
-		monaLisaBall.getObject3D().rotateY(0.5);
+
+	//dice.update(delta);
+	monaLisaBall.update(delta);
+
+	if(stopAnimation){
+		dice.update(0);
 	}
+	// if(moveBall){
+	// 	console.log("aqui");
+	// 	monaLisaBall.getObject3D().rotateY(0.5);
+	// }
 
-	//eventHandler.handlePossibleEvents(delta);
+	eventHandler.handlePossibleEvents(delta);
 }
 
 function init(){ 'use strict';
