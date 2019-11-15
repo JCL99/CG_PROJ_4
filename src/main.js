@@ -65,6 +65,18 @@ function render(){ 'use strict';
 	renderer.render(scene, perspectiveCamera);
 }
 
+
+function resetTHANGS(){'use strict';
+	console.log("aqui 2");
+
+	scene.dispose();
+
+	createScene();
+	createCameras();
+	render();
+}
+
+
 function update(){ 'use strict';
 	// Pretend something cool is happening pl
 
@@ -76,26 +88,17 @@ function update(){ 'use strict';
 	} else if (!stopAnimation){
 		monaLisaBall.update(delta);
 		dice.update(delta);
-	} else if (reset){
+	} 
+
+	if (reset){
 		console.log("aqui 3");
-		reset();
+		resetTHANGS();
 		reset = !reset;
+		stopAnimation = !stopAnimation;
 	}
 	
 }
 
-function reset(){'use strict';
-	console.log("aqui 2");
-
-	scene.dispose();
-
-	createScene();
-	createCameras();
-	render();
-
-
-
-}
 
 function init(){ 'use strict';
   renderer = new THREE.WebGLRenderer({antialias: true, fullscreen: true});

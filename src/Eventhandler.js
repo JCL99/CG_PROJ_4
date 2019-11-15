@@ -23,7 +23,9 @@ class EventHandler{
   		case 82: //"R" reset if animation stopped
   			if(stopAnimation){
   				console.log("aqui");
-  				reset = !reset;
+  				reset = true;
+
+
   			} 
   			break;
 
