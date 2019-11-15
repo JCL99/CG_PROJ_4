@@ -5,7 +5,7 @@ var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 var aspect = SCREEN_HEIGHT/SCREEN_WIDTH;
 
-var moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false;
+var moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false, reset = false;
 
 var boardPointlight, boardDirectionalLight;
 var pointLightON = true, directionalLightON = true;
@@ -27,6 +27,17 @@ function createScene(){ 'use strict';
 	dice = new Dice(0, 0, 0, 7);
 	scene.add(dice.getObject3D());
 
+	//pause visualization
+	var pauseLoader  = new THREE.TextureLoader();
+	var pauseTexture =  pauseLoader.load('../assets/pausa.jpg');
+	var pauseGeometry = new THREE.PlaneGeometry(45, 18.9, 20);
+	pauseGeometry.computeVertexNormals();
+	var pauseMaterial = new THREE.MeshBasicMaterial({color : 0xffffff, side:THREE.DoubleSide, map: pauseTexture});
+	var pauseMesh = new THREE.Mesh(pauseGeometry, pauseMaterial);
+	//pauseMesh.rotateZ(Math.PI);
+	pauseMesh.position.set(0,0,115);
+	scene.add(pauseMesh);
+
 
 	//var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
 	boardPointlight = new THREE.PointLight(0x444444, 3, 75, 0, 2);
@@ -44,45 +55,50 @@ function createScene(){ 'use strict';
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-  perspectiveCamera.position.set(0, 20, 70);
-	//perspectiveCamera.position.set(0, 50, 0);
+ 	perspectiveCamera.position.set(0, 20, 70);
+ 	perspectiveCamera.lookAt(scene.position);
+ 	//scene.add(perspectiveCamera);
 
-  ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
-  ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
-
-  currentCamera = perspectiveCamera;
-  currentCamera.lookAt(0,0,0);
-	//currentCamera.lookAt(dice.getObject3D().position);
 }
 
 function render(){ 'use strict';
-	renderer.render(scene, currentCamera);
+	renderer.render(scene, perspectiveCamera);
 }
 
 function update(){ 'use strict';
-	// Pretend something cool is happening pls
-	//chessBoard.getObject3D().rotateZ(0.001);
-	//monaLisaBall.getObject3D().rotateY(-0.01);
+	// Pretend something cool is happening pl
 
 	delta = clock.getDelta();
 
-
-	//dice.update(delta);
-	monaLisaBall.update(delta);
-
 	if(stopAnimation){
 		dice.update(0);
+		monaLisaBall.update(0);
+	} else if (!stopAnimation){
+		monaLisaBall.update(delta);
+		dice.update(delta);
+	} else if (reset){
+		console.log("aqui 3");
+		reset();
+		reset = !reset;
 	}
-	// if(moveBall){
-	// 	console.log("aqui");
-	// 	monaLisaBall.getObject3D().rotateY(0.5);
-	// }
+	
+}
 
-	eventHandler.handlePossibleEvents(delta);
+function reset(){'use strict';
+	console.log("aqui 2");
+
+	scene.dispose();
+
+	createScene();
+	createCameras();
+	render();
+
+
+
 }
 
 function init(){ 'use strict';
-	renderer = new THREE.WebGLRenderer({antialias: true, fullscreen: true});
+  renderer = new THREE.WebGLRenderer({antialias: true, fullscreen: true});
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   clock = new THREE.Clock({autostart:true});

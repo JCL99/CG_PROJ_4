@@ -4,29 +4,27 @@ class EventHandler{
 	}
 
 	onResize(){ 'use strict';
-    	if(currentCamera != ortographicCamera){
+    	
 	      this.renderer.setSize(window.innerWidth, window.innerHeight);
 
 	      if (window.innerHeight > 0 && window.innerWidth > 0) {
-	          this.currentCamera.aspect = window.innerWidth / window.innerHeight;
-	          this.currentCamera.updateProjectionMatrix();
+	          this.perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
+	          this.perspectiveCamera.updateProjectionMatrix();
       }
-    } else{
-
-		var new_aspect = window.innerHeight/window.innerWidth;
-
-		currentCamera.top = 0*new_aspect;
-		currentCamera.bottom = 0*new_aspect;
-
-		renderer.setSize( window.innerWidth,  window.innerHeight);
-      	currentCamera.updateProjectionMatrix();
-    }
-  }
+    } 
+  
 
 	onKeyDown(event){ 'use strict';
   	switch(event.keyCode){
   		case 83: //"S" stop animation
   			stopAnimation = !stopAnimation;
+  			break;
+
+  		case 82: //"R" reset if animation stopped
+  			if(stopAnimation){
+  				console.log("aqui");
+  				reset = !reset;
+  			} 
   			break;
 
   		case 87: //"W"  wireframe
@@ -60,17 +58,7 @@ class EventHandler{
   			
   			break;
 
-  		case 83:
-  			if(stopAnimation){
-  				clock.startTime = 0;
-				clock.oldTime = 0;
-				clock.elapsedTime = 0;
-  				// cancelAnimationFrame(frameId);
-  				// stopAnimation != stopAnimation;
-  			} else {
-  				//requestAnimationFrame(animate);
-  			}
-  			break;
+  
 
   		case 87: //"W"  wireframe
   			monaLisaBall.changeMaterial();
@@ -102,17 +90,17 @@ class EventHandler{
   			}
 			break;
 
+		case 83: //"S" stop animation
+			if(stopAnimation){
+				perspectiveCamera.position.set(0, 20, 150);
+			} else if(!stopAnimation){
+				perspectiveCamera.position.set(0, 20, 70);
+			}
+  			break;
+
 		}
 }
 
-
-	handlePossibleEvents(deltaTime){
-
-		if(moveBall){
-			monaLisaBall.getObject3D().update(deltaTime);
-		}
-
-	}
 
 }
 

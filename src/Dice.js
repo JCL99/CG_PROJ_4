@@ -82,7 +82,7 @@ class Dice{
   }
 
     update(deltaTime){
-      this.Object3D.rotateY(0.07);
+      this.Object3D.rotateY(deltaTime * 4);
     }
 
    
