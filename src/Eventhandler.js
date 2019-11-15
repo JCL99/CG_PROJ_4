@@ -31,40 +31,39 @@ class EventHandler{
 
   		case 87: //"W"  wireframe
   			showWireframe = !showWireframe;
-        	break;	
+        	break;
 
-        case 76: //"L" desliga o calculo da luz 
+        case 76: //"L" desliga o calculo da luz
         	isBasic = !isBasic;
         	break;
 
         case 66: //"B" activate/deactivate ball motion
   			moveBall = !moveBall;
+				monaLisaBall.velocity = 0.3;
+				monaLisaBall.step = 0.01;
   			break;
-		
 
-		case 68: //"D" desliga luz direcional 
+
+		case 68: //"D" desliga luz direcional
 			directionalLightON = !directionalLightON;
 			break;
 
-		case 80: //"P" desliga a luz pontual 
+		case 80: //"P" desliga a luz pontual
 			pointLightON = !pointLightON;
 			break;
 
 		}
-		
+
  	}
 
 	onKeyUp(event){ 'use strict';
   	switch(event.keyCode){
   		case 66: //"B" activate/deactivate ball motion
-  			
+
   			break;
 
   		case 83:
   			if(stopAnimation){
-  				clock.startTime = 0;
-				clock.oldTime = 0;
-				clock.elapsedTime = 0;
   				// cancelAnimationFrame(frameId);
   				// stopAnimation != stopAnimation;
   			} else {
@@ -76,7 +75,7 @@ class EventHandler{
   			monaLisaBall.changeMaterial();
   			dice.changeMaterial();
   			chessBoard.changeMaterial();
-        	break;	
+        	break;
 
 
   		case 76:
@@ -85,7 +84,7 @@ class EventHandler{
   			chessBoard.changeMaterial();
   			break;
 
-  		case 68: //"D" desliga luz direcional 
+  		case 68: //"D" desliga luz direcional
   			if(!directionalLightON){
   				boardDirectionalLight.intensity = 0;
   			} else if(directionalLightON){
@@ -93,7 +92,7 @@ class EventHandler{
   			}
 			break;
 
-		case 80: //"P" desliga a luz pontual 
+		case 80: //"P" desliga a luz pontual
 
 			if(!pointLightON){
   				boardPointlight.intensity = 0;
@@ -115,4 +114,3 @@ class EventHandler{
 	}
 
 }
-

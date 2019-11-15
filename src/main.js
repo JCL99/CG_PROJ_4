@@ -1,4 +1,4 @@
-// Classic setup coppied from Maria's work :)
+ // Classic setup coppied from Maria's work :)
 var camera, scene, renderer, eventHandler, frameId, clock, delta;
 var perspectiveCamera, ortographicCamera, currentCamera;
 var SCREEN_WIDTH = window.innerWidth;
@@ -21,7 +21,7 @@ function createScene(){ 'use strict';
 
 	// Mona Lisa ball :)
 	monaLisaBall = new CoolBall(-15, 0, -10, 7);
-	scene.add(monaLisaBall.getObject3D());
+	//scene.add(monaLisaBall.getObject3D());
 
 	// Dice :)
 	dice = new Dice(0, 0, 0, 7);
@@ -39,13 +39,13 @@ function createScene(){ 'use strict';
 	scene.add(boardDirectionalLight);
 
 
-	scene.add(new THREE.AxesHelper(25));
+	//scene.add(new THREE.AxesHelper(25));
 }
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
   perspectiveCamera.position.set(0, 20, 70);
-	//perspectiveCamera.position.set(0, 50, 0);
+	//perspectiveCamera.position.set(0, 20, 20);
 
   ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
   ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
@@ -66,19 +66,21 @@ function update(){ 'use strict';
 
 	delta = clock.getDelta();
 
-
-	//dice.update(delta);
-	monaLisaBall.update(delta);
-
 	if(stopAnimation){
 		dice.update(0);
+		monaLisaBall.update(0);
 	}
+	else if(!stopAnimation){
+		monaLisaBall.update(delta);
+		dice.update(delta);
+	}
+
 	// if(moveBall){
 	// 	console.log("aqui");
 	// 	monaLisaBall.getObject3D().rotateY(0.5);
 	// }
 
-	eventHandler.handlePossibleEvents(delta);
+	//eventHandler.handlePossibleEvents(delta);
 }
 
 function init(){ 'use strict';

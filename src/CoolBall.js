@@ -1,3 +1,5 @@
+var origin = new THREE.Group();
+
 class CoolBall{
   constructor(x, y, z, radius){
     this.Object3D = new THREE.Object3D();
@@ -5,14 +7,20 @@ class CoolBall{
     this.radius = radius;
     this.segments = 32;
 
-    this.velocity = new THREE.Vector3(0,0,0);
     this.momentum = null;
-    
+
     this.materials = new Array(3);
     this.mesh = null;
-
+    origin.position.set(0,0,0);
 
     this.askGodForBall();
+    origin.add(this.Object3D);
+    scene.add(origin);
+    //origin.add(this.Object3D);
+
+    this.velocity = 0.3;
+    this.maxVelocity = 5.0;
+    this.step = 0.01;
   }
 
   askGodForBall(){
@@ -50,12 +58,25 @@ class CoolBall{
           this.mesh.material = this.materials[2];
       } else if (!isBasic && !showWireframe){
         this.mesh.material = this.materials[0];
-      } 
+      }
   }
 
-    
-
   update(deltaTime){
-
+    var axis = new THREE.Vector3(0, 1, 0);
+    if(moveBall){
+      if(this.velocity > this.maxVelocity){
+        this.step = -1 * this.step;
+        this.velocity = this.maxVelocity + this.step;
+      }
+      if (this.velocity < 0.0) {
+        moveBall = false;
+      }
+      else{
+        var v = Math.abs(this.velocity) * deltaTime * -4;
+        this.Object3D.rotateOnAxis(axis, v);
+        origin.rotateY(deltaTime * this.velocity);
+        this.velocity = this.velocity + this.step;
+      }
+    }
   }
 }

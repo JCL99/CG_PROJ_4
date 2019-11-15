@@ -58,7 +58,7 @@ class Dice{
 
 
       this.Object3D.add(this.mesh);
-      this.Object3D.add(new THREE.AxesHelper(15));
+      //this.Object3D.add(new THREE.AxesHelper(15));
       this.Object3D.position.set(this.x, this.y + Math.sqrt(3 * (this.size * this.size))/2, this.z);
     }
 
@@ -67,7 +67,7 @@ class Dice{
     }
 
     changeMaterial(){
-      
+
       if(isBasic && !showWireframe){
           this.mesh.material = this.materials[2];
       } else if (showWireframe){
@@ -75,19 +75,13 @@ class Dice{
           this.mesh.geometry = this.geometries[2];
           this.mesh.material = this.materials[1];
       } else if (!isBasic){
-        
+
         this.mesh.material = this.materials[0];
         this.mesh.geometry = this.geometries[0];
-      } 
+      }
   }
 
     update(deltaTime){
-      this.Object3D.rotateY(0.07);
+      this.Object3D.rotateY(deltaTime * 10);
     }
-
-   
-      
 }
-
-
-
