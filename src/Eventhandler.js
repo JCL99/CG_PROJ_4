@@ -38,9 +38,14 @@ class EventHandler{
         	break;
 
         case 66: //"B" activate/deactivate ball motion
-  			moveBall = !moveBall;
-				monaLisaBall.velocity = 0.3;
-				monaLisaBall.step = 0.01;
+					if(moveBall){
+						monaLisaBall.step = -monaLisaBall.step;
+					}
+					else{
+						moveBall = !moveBall;
+						monaLisaBall.velocity = 0.3;
+						monaLisaBall.step = 0.01;
+					}
   			break;
 
 

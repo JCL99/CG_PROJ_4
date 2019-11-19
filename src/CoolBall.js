@@ -63,19 +63,23 @@ class CoolBall{
 
   update(deltaTime){
     var axis = new THREE.Vector3(0, 1, 0);
-    if(moveBall){
-      if(this.velocity > this.maxVelocity){
-        this.step = -1 * this.step;
-        this.velocity = this.maxVelocity + this.step;
-      }
-      if (this.velocity < 0.0) {
-        moveBall = false;
-      }
-      else{
-        var v = Math.abs(this.velocity) * deltaTime * -4;
-        this.Object3D.rotateOnAxis(axis, v);
-        origin.rotateY(deltaTime * this.velocity);
-        this.velocity = this.velocity + this.step;
+    if(!deltaTime == 0){
+      if(moveBall){
+        if(this.velocity > this.maxVelocity){
+          this.velocity = this.maxVelocity;
+          this.step = 0;
+          //this.step = -1 * this.step;
+          //this.velocity = this.maxVelocity + this.step;
+        }
+        if (this.velocity < 0.0) {
+          moveBall = false;
+        }
+        else{
+          var v = Math.abs(this.velocity) * deltaTime * -4;
+          this.Object3D.rotateOnAxis(axis, v);
+          origin.rotateY(deltaTime * this.velocity);
+          this.velocity = this.velocity + this.step;
+        }
       }
     }
   }
