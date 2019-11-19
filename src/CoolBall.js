@@ -1,4 +1,5 @@
-var origin = new THREE.Group();
+var origin = new THREE.Object3D();
+var rot=0;
 
 class CoolBall{
   constructor(x, y, z, radius){
@@ -15,7 +16,6 @@ class CoolBall{
 
     this.askGodForBall();
     origin.add(this.Object3D);
-    scene.add(origin);
     //origin.add(this.Object3D);
 
     this.velocity = 0.3;
@@ -51,6 +51,11 @@ class CoolBall{
     return this.Object3D;
   }
 
+  posSet(x,y,z){
+    this.Object3D.position.set(x, y + this.radius, z);
+    this.Object3D.rotateY(-Math.PI/2);
+  }
+
   changeMaterial(){
       if(isBasic && !showWireframe){
           this.mesh.material = this.materials[1];
@@ -78,6 +83,7 @@ class CoolBall{
           var v = Math.abs(this.velocity) * deltaTime * -4;
           this.Object3D.rotateOnAxis(axis, v);
           origin.rotateY(deltaTime * this.velocity);
+          rot+=deltaTime*this.velocity;
           this.velocity = this.velocity + this.step;
         }
       }

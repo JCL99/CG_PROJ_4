@@ -5,7 +5,7 @@ var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 var aspect = SCREEN_HEIGHT/SCREEN_WIDTH;
 
-var moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false;
+var moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false, reset=false;
 
 var boardPointlight, boardDirectionalLight;
 var pointLightON = true, directionalLightON = true;
@@ -21,11 +21,23 @@ function createScene(){ 'use strict';
 
 	// Mona Lisa ball :)
 	monaLisaBall = new CoolBall(-15, 0, -10, 7);
+	scene.add(origin);
 	//scene.add(monaLisaBall.getObject3D());
 
 	// Dice :)
 	dice = new Dice(0, 0, 0, 7);
 	scene.add(dice.getObject3D());
+
+	//pause visualization
+	var pauseLoader  = new THREE.TextureLoader();
+	var pauseTexture =  pauseLoader.load('../assets/pausa.jpg');
+	var pauseGeometry = new THREE.PlaneGeometry(45, 18.9, 20);
+	pauseGeometry.computeVertexNormals();
+	var pauseMaterial = new THREE.MeshBasicMaterial({color : 0xffffff, side:THREE.DoubleSide, map: pauseTexture});
+	var pauseMesh = new THREE.Mesh(pauseGeometry, pauseMaterial);
+	//pauseMesh.rotateZ(Math.PI);
+	pauseMesh.position.set(0,0,115);
+	scene.add(pauseMesh);
 
 
 	//var chessBoardSpotlight = new THREE.SpotLight({intensity:1.3, target:chessBoard.getObject3D()});
@@ -44,19 +56,26 @@ function createScene(){ 'use strict';
 
 function createCameras(){ 'use strict';
 	perspectiveCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-  perspectiveCamera.position.set(0, 20, 70);
-	//perspectiveCamera.position.set(0, 20, 20);
+	perspectiveCamera.position.set(0, 20, 70);
+ 	perspectiveCamera.lookAt(scene.position);
+ 	//scene.add(perspectiveCamera);
 
-  ortographicCamera = new THREE.OrthographicCamera(1999/2, 0, 1999/4 + 10*aspect , 1999/4 - 10*aspect, 1, 1000);
-  ortographicCamera.position.set(new THREE.Vector3(60, 0, 0));
-
-  currentCamera = perspectiveCamera;
-  currentCamera.lookAt(0,0,0);
-	//currentCamera.lookAt(dice.getObject3D().position);
 }
 
 function render(){ 'use strict';
-	renderer.render(scene, currentCamera);
+	renderer.render(scene, perspectiveCamera);
+}
+
+function resetTHANGS(){'use strict';
+	monaLisaBall.Object3D.visible = false;
+	scene.dispose();
+
+
+	createScene();
+	origin.rotateY(-rot);
+	rot = 0
+	createCameras();
+	//render();
 }
 
 function update(){ 'use strict';
@@ -75,12 +94,12 @@ function update(){ 'use strict';
 		dice.update(delta);
 	}
 
-	// if(moveBall){
-	// 	console.log("aqui");
-	// 	monaLisaBall.getObject3D().rotateY(0.5);
-	// }
-
-	//eventHandler.handlePossibleEvents(delta);
+	if (reset){
+		console.log("aqui 3");
+		resetTHANGS();
+		reset = !reset;
+		stopAnimation = !stopAnimation;
+	}
 }
 
 function init(){ 'use strict';
