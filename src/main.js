@@ -69,7 +69,7 @@ function render(){ 'use strict';
 function resetTHANGS(){'use strict';
 	monaLisaBall.Object3D.visible = false;
 	scene.dispose();
-	moveBall = false, stopAnimation = false, isBasic = false, showWireframe = false, reset=false;
+	moveBall = false, isBasic = false, showWireframe = false;
 
 	createScene();
 	origin.rotateY(-rot);
