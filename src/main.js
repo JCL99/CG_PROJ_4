@@ -73,7 +73,7 @@ function resetTHANGS(){'use strict';
 
 	createScene();
 	origin.rotateY(-rot);
-	rot = 0
+	rot = 0;
 	createCameras();
 	//render();
 }
@@ -99,6 +99,7 @@ function update(){ 'use strict';
 		resetTHANGS();
 		reset = !reset;
 		stopAnimation = !stopAnimation;
+		moveBall = false;
 	}
 }
 
