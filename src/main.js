@@ -30,7 +30,7 @@ function createScene(){ 'use strict';
 
 	//pause visualization
 	var pauseLoader  = new THREE.TextureLoader();
-	var pauseTexture =  pauseLoader.load('../assets/pausa.jpg');
+	var pauseTexture =  pauseLoader.load('../CG_PROJ_4/assets/pausa.jpg');
 	var pauseGeometry = new THREE.PlaneGeometry(45, 18.9, 20);
 	pauseGeometry.computeVertexNormals();
 	var pauseMaterial = new THREE.MeshBasicMaterial({color : 0xffffff, side:THREE.DoubleSide, map: pauseTexture});
