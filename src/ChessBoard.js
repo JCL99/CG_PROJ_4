@@ -17,8 +17,8 @@ class ChessBoard{
 		var mesh, geometry, material, mapLoader, texture, woodBumpMap;
 
 		mapLoader = new THREE.TextureLoader();
-		texture = mapLoader.load('../assets/ChessBoard.jpg');
-		woodBumpMap = mapLoader.load('../assets/WoodBumpMap.jpg');
+		texture = mapLoader.load('../CG_PROJ_4/assets/ChessBoard.jpg');
+		woodBumpMap = mapLoader.load('../CG_PROJ_4/assets/WoodBumpMap.jpg');
 
 		this.materials[0] = new THREE.MeshPhongMaterial({side:THREE.DoubleSide, map:texture, bumpMap:woodBumpMap, bumpScale:0.75});
 		this.materials[1] = new THREE.MeshBasicMaterial({color : Math.random() * 0xffffff, wireframe : false});
@@ -40,14 +40,14 @@ class ChessBoard{
 	}
 
 	changeMaterial(){
-		
+
 	    if(isBasic && !showWireframe){
 	      	this.mesh.material = this.materials[1];
 	    } else if (showWireframe){
 	      	this.mesh.material = this.materials[2];
 	    } else if (!isBasic && !showWireframe){
 	    	this.mesh.material = this.materials[0];
-	    } 
+	    }
 	}
 
 }

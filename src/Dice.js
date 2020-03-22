@@ -21,12 +21,12 @@ class Dice{
 
       mapLoader = new THREE.TextureLoader();
 
-      var texture1 = mapLoader.load('../assets/DiceOne.png');
-      var texture2 = mapLoader.load('../assets/DiceTwo.png');
-      var texture3 = mapLoader.load('../assets/DiceThree.png');
-      var texture4 = mapLoader.load('../assets/DiceFour.png');
-      var texture5 = mapLoader.load('../assets/DiceFive.png');
-      var texture6 = mapLoader.load('../assets/DiceSix.png');
+      var texture1 = mapLoader.load('../CG_PROJ_4/assets/DiceOne.png');
+      var texture2 = mapLoader.load('../CG_PROJ_4/assets/DiceTwo.png');
+      var texture3 = mapLoader.load('../CG_PROJ_4/assets/DiceThree.png');
+      var texture4 = mapLoader.load('../CG_PROJ_4/assets/DiceFour.png');
+      var texture5 = mapLoader.load('../CG_PROJ_4/assets/DiceFive.png');
+      var texture6 = mapLoader.load('../CG_PROJ_4/assets/DiceSix.png');
 
       var materials = [
         new THREE.MeshPhongMaterial({map: texture1, bumpMap:texture1, bumpScale:1}),

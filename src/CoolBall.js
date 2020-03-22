@@ -28,7 +28,7 @@ class CoolBall{
 		var  geometry, mapLoader, texture;
 
     mapLoader = new THREE.TextureLoader();
-    texture = mapLoader.load('../assets/MonaLisa.jpg');
+    texture = mapLoader.load('../CG_PROJ_4/assets/MonaLisa.jpg');
 
     geometry = new THREE.SphereGeometry(this.radius, this.segments, this.segments);
     geometry.computeVertexNormals();
